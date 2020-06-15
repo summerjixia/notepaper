@@ -1,4 +1,4 @@
-# axios_cors
+# notepaper
 
 > A Vue.js project
 
