@@ -2,8 +2,20 @@
 
 > A Vue.js project
 
-![avatar](http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png)
-
+<div>
+ <div style="float:left">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png">
+    <div><span>图片</span></div>
+    </div>
+    <div style="float:left">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png">
+    <div><span>图片</span></div>
+    </div>
+    <div>
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png">
+    <div><span>图片</span></div>
+    </div>
+</div>
 ## Build Setup
 
 ``` bash
