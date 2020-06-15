@@ -1,8 +1,13 @@
 <template>
-  <div class="main_page" :style="{'margin-left':leftNavState?'200px':'0px'}">
+  <div class="main_page">
     <left-nav @updateTitle="updateTitle" :navState="leftNavState" :menuList="menuList"></left-nav>
-    <header-nav @openLeftNav="openLeftNav" :title="openMenu.name" @showTitle="showTitle"></header-nav>
-    <notepaper-List :list="notePaperList"></notepaper-List>
+    <header-nav
+      :style="{'transform':leftNavState?'translateX(200px)':'translateX(0px)'}"
+      @openLeftNav="openLeftNav"
+      :title="openMenu.name"
+      @showTitle="showTitle"
+    ></header-nav>
+    <notepaper-List :style="{'transform':leftNavState?'translateX(200px)':'translateX(0px)'}" :list="notePaperList"></notepaper-List>
     <div class="addNotePaper">
       <img src="../../svg/wu.svg" alt @click="add" />
     </div>
@@ -112,9 +117,6 @@ export default {
 </script>
 
 <style scoped>
-.main_page {
-  transition: margin-left 0.3s ease-in;
-}
 .addNotePaper {
   display: block;
   line-height: 70px;

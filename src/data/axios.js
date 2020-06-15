@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-// axios.defaults.baseURL = "http://114.67.76.65:8081";
-// axios.defaults.headers.Origin = "http://114.67.76.65:8081";
-// axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
+axios.defaults.baseURL = "http://114.67.76.65:8081";
 
 axios.interceptors.request.use(function (config) {
     // console.log(config.url)

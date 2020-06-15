@@ -53,4 +53,7 @@ export default {
 </script>
 
 <style scoped>
+.all_content {
+  transition: transform 0.3s ease-in;
+}
 </style>

@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+![avatar](screenshots/Screenshot_20200616-002007.png)
+
 ## Build Setup
 
 ``` bash
