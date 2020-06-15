@@ -2,7 +2,7 @@
 
 > A Vue.js project
 
-![avatar](/screenshots/Screenshot_20200616-002007.png)
+![avatar](http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png)
 
 ## Build Setup
 
