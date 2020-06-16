@@ -1,6 +1,8 @@
 # notepaper
 
-> A Vue.js project
+> vue+vue-route+vuex实现的便签项目
+
+
 
 <div>
     <img src="http://114.67.76.65:8080/notepaper/screenshots/img_1.png">
