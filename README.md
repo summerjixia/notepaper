@@ -1,6 +1,6 @@
 # notepaper
 
-> vue+vue-route+vuex实现的便签项目
+> vue + vue-route + vuex + axios + vant实现的便签项目
 
 
 
