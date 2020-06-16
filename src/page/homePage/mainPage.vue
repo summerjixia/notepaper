@@ -117,6 +117,9 @@ export default {
 </script>
 
 <style scoped>
+.main_page{
+  overflow-x: hidden;
+}
 .addNotePaper {
   display: block;
   line-height: 70px;

@@ -3,18 +3,17 @@
 > A Vue.js project
 
 <div>
- <div style="float:left">
-    <img src="http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png">
-    <div><span>图片</span></div>
-    </div>
-    <div style="float:left">
-    <img src="http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png">
-    <div><span>图片</span></div>
-    </div>
-    <div>
-    <img src="http://114.67.76.65:8080/notepaper/screenshots/Screenshot_20200616-002007.png">
-    <div><span>图片</span></div>
-    </div>
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_1.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_2.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_3.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_4.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_5.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_6.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_7.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_8.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_9.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_10.png">
+    <img src="http://114.67.76.65:8080/notepaper/screenshots/img_11.png">
 </div>
 ## Build Setup
 
