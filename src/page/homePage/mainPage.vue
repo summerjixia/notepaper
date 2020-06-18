@@ -4,15 +4,27 @@
     <header-nav
       :style="{'transform':leftNavState?'translateX(200px)':'translateX(0px)'}"
       @openLeftNav="openLeftNav"
-      :title="openMenu.name"
+      :title="!!openMenu?openMenu.name:'笔记'"
       @showTitle="showTitle"
     ></header-nav>
-    <notepaper-List :style="{'transform':leftNavState?'translateX(200px)':'translateX(0px)'}" :list="notePaperList"></notepaper-List>
+    <notepaper-List
+      :style="{'transform':leftNavState?'translateX(200px)':'translateX(0px)'}"
+      :list="notePaperList"
+    ></notepaper-List>
     <div class="addNotePaper">
-      <img src="../../svg/wu.svg" alt @click="add" />
+      <img src="../../svg/biji.png" alt @click="add" />
     </div>
-    <van-popup v-model="show" closeable @close="closePopup">
-      <van-field v-model="valueTitle" :placeholder="openMenu.level===1?'添加新标题':'更新标题'" />
+    <van-popup
+      v-model="show"
+      closeable
+      position="bottom"
+      :style="{ height: '18%' }"
+      @close="closePopup"
+    >
+      <van-list>
+        <van-field v-model="valueTitle" :placeholder="openMenu&&openMenu.level===1?'添加新标题':'更新标题'" />
+        <van-field v-if="openMenu&&openMenu.level!==1" value="删除此分类" readonly @click="deleteMenu" />
+      </van-list>
     </van-popup>
   </div>
 </template>
@@ -28,7 +40,8 @@ import {
   getNotePaperById,
   getMenu,
   saveMenu,
-  updateMenu
+  updateMenu,
+  deleteMenu
 } from "../../data/api";
 export default {
   data() {
@@ -89,7 +102,8 @@ export default {
           this.openMenu.name = this.valueTitle;
         });
       }
-      this.setMenuList();
+      this.show = false;
+      this.getData();
     },
     add() {
       if (this.openMenu.level === 1) {
@@ -97,6 +111,12 @@ export default {
         return;
       }
       this.$router.push({ path: "/addnotepaper" });
+    },
+    deleteMenu() {
+      deleteMenu({ id: this.openMenu.catalogueId }).then(() => {
+        this.openMenu.level = 1;
+        this.closePopup();
+      });
     },
     async getData() {
       this.setMenuList();
@@ -117,7 +137,7 @@ export default {
 </script>
 
 <style scoped>
-.main_page{
+.main_page {
   overflow-x: hidden;
 }
 .addNotePaper {

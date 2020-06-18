@@ -8,6 +8,8 @@ export const getMenu = (param) => get("/queryCatalogue", param)
 export const saveMenu = (param) => post("/saveCatalogue", param)
 //更新目录
 export const updateMenu = (param) => post("/updateCatalogue", param)
+//删除目录
+export const deleteMenu = (param) => get("/deleteCatalogue", { params: { ...param } })
 
 
 //目录下包括子目录笔记

@@ -1,5 +1,5 @@
 <template>
-  <div class="all_content" :style="allStyle">
+  <div class="all_content" :style="styleFilter">
     <note-paper
       v-for="(item,index) in list"
       :key="index"
@@ -8,6 +8,7 @@
       @isTopList="isTopList"
       @deleteNote="deleteNote"
     ></note-paper>
+    <span v-if="list.length===0">空空如也</span>
   </div>
 </template>
 
@@ -24,6 +25,13 @@ export default {
   },
   components: {
     notePaper
+  },
+  computed: {
+    styleFilter: function() {
+      return this.list.length === 0
+        ? { position: "fixed", top: "50%", left: "40%" }
+        : {};
+    }
   },
   methods: {
     onRefresh() {
@@ -55,5 +63,8 @@ export default {
 <style scoped>
 .all_content {
   transition: transform 0.3s ease-in;
+}
+span {
+  vertical-align: middle;
 }
 </style>

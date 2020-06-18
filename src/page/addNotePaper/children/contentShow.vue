@@ -1,5 +1,5 @@
 <template>
-  <div v-back class="content">
+  <div v-back class="content" :style="style">
     <span class="H1logo">H1</span>
     <textarea v-textEvent:foo ref="textarea$1" v-model="title" class="textarea textTitle" rows="1"></textarea>
   </div>
@@ -12,7 +12,10 @@ export default {
   data() {
     return {
       title: "",
-      params: this.$route.params
+      params: this.$route.params,
+      style: {
+        height: document.body.clientHeight * 0.85 + "px"
+      }
     };
   },
   directives: { ...backMainDirective },

@@ -5,13 +5,13 @@
     </div>
     <div class="proj_menu">
       <div v-for="(item,index) in menuList" :key="index">
-        <van-row>
+        <van-row :style="{background:selectRow===index?'rgba(220,220,220,.1)':'none'}">
           <van-col span="3">
             <img :src="item.iconPath | imgData" />
           </van-col>
           <van-col
             span="8"
-            @click="typeExposeAll({catalogueId:item.catalogueId,name:item.name,level:item.level})"
+            @click="typeExposeAll({catalogueId:item.catalogueId,name:item.name,level:item.level},index)"
           >{{item.name}}</van-col>
           <van-col span="8" offset="5">
             <img
@@ -25,8 +25,9 @@
         <div v-if="item.subMenu" :style="{display:item.display}">
           <van-row
             v-for="(sub,subIndex) in item.subMenu"
+            :style="{background:selectRow===(index+'-'+subIndex)?'rgba(220,220,220,.1)':'none'}"
             :key="subIndex"
-            @click="typeExposeAll({catalogueId:sub.catalogueId,name:sub.name})"
+            @click="typeExposeAll({catalogueId:sub.catalogueId,name:sub.name},(index+'-'+subIndex))"
           >{{sub.name}}</van-row>
         </div>
       </div>
@@ -37,11 +38,18 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      selectRow: 0
+    };
   },
   computed: {
     isShow() {
       return this.navState ? { left: `0px` } : { left: `-200px` };
+    }
+  },
+  watch: {
+    menuList: function(old, newVal) {
+      old.length !== newVal.length && (this.selectRow = 0);
     }
   },
   filters: {
@@ -50,7 +58,8 @@ export default {
     }
   },
   methods: {
-    typeExposeAll(param) {
+    typeExposeAll(param, index) {
+      this.selectRow = index;
       this.$emit("updateTitle", param);
     },
     changeExposeLogo(index, item) {
@@ -59,8 +68,8 @@ export default {
           ? require("../../../svg/zhankai1.png")
           : require("../../../svg/zhankai.png");
 
-
       item.display = item.display === "none" ? "block" : "none";
+      this.selectRow = index;
     }
   },
   props: {
@@ -101,6 +110,7 @@ img {
 }
 
 .van-row {
-  margin-top: 10px;
+  height: 40px;
+  line-height: 40px;
 }
 </style>

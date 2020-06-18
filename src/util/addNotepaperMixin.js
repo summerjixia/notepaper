@@ -4,7 +4,7 @@
 // 3.正文从第二行开始
 // 4.文字下划线
 //5.涂鸦图片高清
-//6.公用的指令及focus对象元素   或者写一个组件，将content内容全部放入一个list中遍历放入父组件中
+//6.相同图片无法连续添加两次
 import { saveNotePaper, updateNotePaper } from "../data/api"
 import axios from "axios"
 
@@ -30,77 +30,94 @@ export const backMainDirective = {
 
         },
         unbind: async function (el, binding, vnode, oldVnode) {
-            let arr = [];
-            let str = "";
-            let children = el.childNodes;
-            children.forEach((item, index) => {
-                if (index > 2) {
-                    if (item.tagName === "DIV") {
-                        item.childNodes.forEach((divItem) => {
-                            if (divItem.tagName == "IMG") {
-                                arr.push(`<img class='imgel' src='${divItem.src}' />`)
-                            } else if (divItem.tagName == "TEXTAREA") {
-                                arr.push(`<textarea v-textEvent  style='height:${divItem.style.height}' class='textarea' rows='1'>${divItem.value}</textarea>`)
-                                str += divItem.value;
-                            }
-                        })
+            if (vnode.context.title) {
+                let arr = [];//元素集合
+                let str = "";//文字
+                let img = {};//图片存储
+                let children = el.childNodes;
+                children.forEach((item, index) => {
+                    if (index > 2) {
+                        if (item.tagName === "DIV") {
+                            item.childNodes.forEach((divItem) => {
+                                if (divItem.tagName == "IMG") {
+                                    if (divItem.src.indexOf("/pictures") === -1) {
+                                        let fileName = `${new Date().getTime()}.jpg`;
+                                        arr.push(`<img class='imgel' src='/pictures/${fileName}' />`)
+                                        img[fileName] = divItem.src;
+                                    } else {
+                                        arr.push(`<img class='imgel' src='${divItem.src}' />`)
+                                    }
+                                } else if (divItem.tagName == "TEXTAREA") {
+                                    arr.push(`<textarea v-textEvent  style='height:${divItem.style.height}' class='textarea' rows='1'>${divItem.value}</textarea>`)
+                                    str += divItem.value;
+                                }
+                            })
 
-                    } else {
-                        if (item.tagName == "IMG") {
-                            arr.push(`<img class='imgel' src='${item.src}' />`)
-                        } else if (item.tagName == "TEXTAREA") {
-                            arr.push(`<textarea v-textEvent  style='height:${item.style.height}' class='textarea' rows='1'>${item.value}</textarea>`)
-                            str += item.value;
+                        } else {
+                            if (item.tagName == "IMG") {
+                                if (item.src.indexOf("/pictures") === -1) {
+                                    let fileName = `${new Date().getTime()}.jpg`;
+                                    arr.push(`<img class='imgel' src='/pictures/${fileName}' />`)
+                                    img[fileName] = item.src;
+                                } else {
+                                    arr.push(`<img class='imgel' src='${item.src}' />`)
+                                }
+                            } else if (item.tagName == "TEXTAREA") {
+                                arr.push(`<textarea v-textEvent  style='height:${item.style.height}' class='textarea' rows='1'>${item.value}</textarea>`)
+                                str += item.value;
+                            }
+                        }
+                    }
+                })
+
+                if (!Object.keys(vnode.context.params).length) {
+                    await saveNotePaper({
+                        catalogueId: vnode.context.openMenu.catalogueId,
+                        noteDate: new Date(),
+                        isTop: 0,//数据库应该设置默认值
+                        title: vnode.context.title,
+                        content: arr.join(""),
+                        words: str,
+                        picture: JSON.stringify(img)
+                    })
+                } else {
+                    // await updateNotePaper({
+                    //     listId: vnode.context.params.listId,
+                    //     catalogueId: vnode.context.openMenu.catalogueId,
+                    //     title: vnode.context.title,
+                    //     content: arr.join(""),
+                    //     words: str
+                    // })
+                    await post("/updateNodeList", {
+                        listId: vnode.context.params.listId,
+                        catalogueId: vnode.context.openMenu.catalogueId,
+                        title: vnode.context.title,
+                        content: arr.join(""),
+                        words: str,
+                        picture: JSON.stringify(img)
+                    })
+                    async function post(url, data) {
+                        try {
+                            let res = await axios.post(url, data)
+                            res = res.data
+                            return new Promise((resolve, reject) => {
+                                if (res.code === 0) {
+                                    resolve(res)
+                                } else {
+                                    reject(res)
+                                }
+                            })
+                        } catch (err) {
+                            // return (e.message)
+                            alert('服务器出错')
+                            console.log(err)
                         }
                     }
                 }
-            })
 
-            if (!Object.keys(vnode.context.params).length) {
-                await saveNotePaper({
-                    catalogueId: vnode.context.openMenu.catalogueId,
-                    noteDate: new Date(),
-                    isTop: 0,//数据库应该设置默认值
-                    title: vnode.context.title,
-                    content: arr.join(""),
-                    words: str
-                })
-            } else {
-                // await updateNotePaper({
-                //     listId: vnode.context.params.listId,
-                //     catalogueId: vnode.context.openMenu.catalogueId,
-                //     title: vnode.context.title,
-                //     content: arr.join(""),
-                //     words: str
-                // })
-                await post("/updateNodeList", {
-                    listId: vnode.context.params.listId,
-                    catalogueId: vnode.context.openMenu.catalogueId,
-                    title: vnode.context.title,
-                    content: arr.join(""),
-                    words: str
-                })
-                async function post(url, data) {
-                    try {
-                        let res = await axios.post(url, data)
-                        res = res.data
-                        return new Promise((resolve, reject) => {
-                            if (res.code === 0) {
-                                resolve(res)
-                            } else {
-                                reject(res)
-                            }
-                        })
-                    } catch (err) {
-                        // return (e.message)
-                        alert('服务器出错')
-                        console.log(err)
-                    }
-                }
             }
 
         }
-
     }
 }
 
@@ -205,13 +222,13 @@ export const canvasDirectives = {
         let imgEl = document.createElement("img");
         imgEl.setAttribute("class", "imgel");
         imgEl.setAttribute(vnode.context.$options._scopeId, "")
-        // imgEl.setAttribute(
-        //     "style",
-        //     " width: 300px;" +
-        //     "height:" +
-        //     (h.max - h.min + 20) +
-        //     "px;background-color: rgba(245,245,245,.5);"
-        // );
+        imgEl.setAttribute(
+            "style",
+            // " width: 300px;" +
+            // "height:" +
+            // (h.max - h.min + 20) +
+            "background-color: rgba(245,245,245,.5);"
+        );
         imgEl.src = el.toDataURL("img/jpeg");
         window.$el.after(imgEl);
         //添加新textarea

@@ -1,7 +1,10 @@
 <template>
   <div class="header">
     <img src="../../../svg/daohang.png" @click="openNav" alt />
-    <span @click="showTitle">{{title}}</span>
+    <div class="editTitle">
+      <span >{{title}}</span>
+      <img src="../../../svg/zhankai2.png" @click="showTitle"/>
+    </div>
     <img src="../../../svg/sousuo.png" @click="openSearch" alt />
   </div>
 </template>
@@ -36,6 +39,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   transition: transform 0.3s ease-in;
+}
+
+.editTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 img {

@@ -6,12 +6,12 @@
         :style="{background:obj.isTop===0?'white':'#FAFAD2'}"
         @click="$router.push({name:'addnotepaper',params:obj})"
       >
-        <span class="content_date">{{obj.noteDate}}</span>
         <div class="content_list">
-          <span class="content_title">{{obj.title}}</span>
-          <span>
-            <p class="conent_p">{{obj.words}}</p>
-          </span>
+          <div class="content_title">
+            <span class>{{obj.title}}</span>
+            <span class="content_date">{{obj.noteDate}}</span>
+          </div>
+          <p class="conent_p">{{obj.words}}</p>
           <div class="hr"></div>
         </div>
       </div>
@@ -59,35 +59,43 @@ export default {
 
 <style scoped>
 .content_div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 15px;
 }
 
-.content_title {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.content_date {
-  width: 15%;
-}
-
 .content_list {
-  width: 85%;
+  width: 100%;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
   align-items: start;
   font-family: Arial, Helvetica, sans-serif;
 }
+.content_title {
+  width: 90%;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content_title span:nth-child(1){
+  font-weight: bold;
+}
+
+.content_date {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
 .conent_p {
   height: 25px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   margin-top: 10px;
+  font-size: 15px;
+  width:90%;
 }
 .hr {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -98,7 +106,7 @@ export default {
   height: 100%;
 }
 
-.van-swipe-cell__right{
+.van-swipe-cell__right {
   font-size: 0;
 }
 </style>

@@ -27,9 +27,9 @@ const mutations = {
     async setMenuList(state, playload) {
         await get();
         function get() {
-          return  getMenu().then((result) => {
-                state.menuList = result.data.map((item) => {
-                    return { ...item, display: "none" };
+            return getMenu().then((result) => {
+                state.menuList = result.data.map((item, index) => {
+                    return { ...item, display: state.menuList[index] ? state.menuList[index].display : "none" };
                 })
             })
 
