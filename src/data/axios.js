@@ -18,9 +18,5 @@ export const get = (url, param) => {
 }
 
 export const post = (url, param) => {
-    return new Promise((resolve) => {
-        axios.post(url, param).then((res) => {
-            resolve(res);
-        })
-    })
+    return axios.post(url, param);
 }

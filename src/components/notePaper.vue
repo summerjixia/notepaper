@@ -79,7 +79,7 @@ export default {
   justify-content: space-between;
 }
 
-.content_title span:nth-child(1){
+.content_title span:nth-child(1) {
   font-weight: bold;
 }
 
@@ -95,7 +95,8 @@ export default {
   white-space: nowrap;
   margin-top: 10px;
   font-size: 15px;
-  width:90%;
+  width: 90%;
+  text-align: left;
 }
 .hr {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);

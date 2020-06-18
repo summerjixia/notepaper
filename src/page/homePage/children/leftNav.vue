@@ -5,7 +5,7 @@
     </div>
     <div class="proj_menu">
       <div v-for="(item,index) in menuList" :key="index">
-        <van-row :style="{background:selectRow===index?'rgba(220,220,220,.1)':'none'}">
+        <van-row :style="{background:openMenu.catalogueId===item.catalogueId?'rgba(220,220,220,.1)':'none'}">
           <van-col span="3">
             <img :src="item.iconPath | imgData" />
           </van-col>
@@ -25,7 +25,7 @@
         <div v-if="item.subMenu" :style="{display:item.display}">
           <van-row
             v-for="(sub,subIndex) in item.subMenu"
-            :style="{background:selectRow===(index+'-'+subIndex)?'rgba(220,220,220,.1)':'none'}"
+            :style="{background:openMenu.catalogueId===sub.catalogueId?'rgba(220,220,220,.1)':'none'}"
             :key="subIndex"
             @click="typeExposeAll({catalogueId:sub.catalogueId,name:sub.name},(index+'-'+subIndex))"
           >{{sub.name}}</van-row>
@@ -36,21 +36,23 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      selectRow: 0
+      // selectRow: 0
     };
   },
   computed: {
     isShow() {
       return this.navState ? { left: `0px` } : { left: `-200px` };
-    }
+    },
+    ...mapState(["openMenu"])
   },
   watch: {
-    menuList: function(old, newVal) {
-      old.length !== newVal.length && (this.selectRow = 0);
-    }
+    // menuList: function(old, newVal) {
+    //   old.length !== newVal.length && (this.selectRow = 0);
+    // }
   },
   filters: {
     imgData(value) {
@@ -59,7 +61,7 @@ export default {
   },
   methods: {
     typeExposeAll(param, index) {
-      this.selectRow = index;
+      // this.selectRow = index;
       this.$emit("updateTitle", param);
     },
     changeExposeLogo(index, item) {
@@ -69,7 +71,7 @@ export default {
           : require("../../../svg/zhankai.png");
 
       item.display = item.display === "none" ? "block" : "none";
-      this.selectRow = index;
+      // this.selectRow = index;
     }
   },
   props: {

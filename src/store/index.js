@@ -25,16 +25,10 @@ const getters = {
 
 const mutations = {
     async setMenuList(state, playload) {
-        await get();
-        function get() {
-            return getMenu().then((result) => {
-                state.menuList = result.data.map((item, index) => {
-                    return { ...item, display: state.menuList[index] ? state.menuList[index].display : "none" };
-                })
-            })
-
-        }
-
+        let result = await getMenu();
+        state.menuList = result.data.map((item, index) => {
+            return { ...item, display: state.menuList[index] ? state.menuList[index].display : "none" };
+        })
     },
     setOpenMenu(state, playload) {
         state.openMenu = playload;

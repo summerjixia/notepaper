@@ -19,9 +19,9 @@ export const getNotePaperById = (param) => get("/queryListById", { params: { ...
 //模糊搜索所有目录下的笔记
 export const getNotePaperByLike = (param) => get("/queryListByContentLike", { params: { ...param } })
 //保存笔记
-export const saveNotePaper = async (param) => { await post("/saveNoteList", param) }
+export const saveNotePaper = async (param) => { let result = await post("/saveNoteList", param);console.log(result) }
 //更新笔记
-export const updateNotePaper = async (param) => { await post("/updateNodeList", param) }
+export const updateNotePaper = async (param) => { let result = await post("/updateNodeList", param);console.log(result) }
 //更新是否为置顶
 export const updateTop = (param) => post("/updateTop", param)
 //删除

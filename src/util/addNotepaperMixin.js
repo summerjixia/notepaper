@@ -6,7 +6,6 @@
 //5.涂鸦图片高清
 //6.相同图片无法连续添加两次
 import { saveNotePaper, updateNotePaper } from "../data/api"
-import axios from "axios"
 
 export const backMainDirective = {
 
@@ -29,7 +28,7 @@ export const backMainDirective = {
             })
 
         },
-        unbind: async function (el, binding, vnode, oldVnode) {
+        unbind: function (el, binding, vnode, oldVnode) {
             if (vnode.context.title) {
                 let arr = [];//元素集合
                 let str = "";//文字
@@ -71,7 +70,20 @@ export const backMainDirective = {
                 })
 
                 if (!Object.keys(vnode.context.params).length) {
-                    await saveNotePaper({
+                    // await saveNotePaper({
+                    //     catalogueId: vnode.context.openMenu.catalogueId,
+                    //     noteDate: new Date(),
+                    //     isTop: 0,//数据库应该设置默认值
+                    //     title: vnode.context.title,
+                    //     content: arr.join(""),
+                    //     words: str,
+                    //     picture: JSON.stringify(img)
+                    // })
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'http://114.67.125.226:8081/saveNoteList', false);
+                    xhr.onload = function (e) { };
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
                         catalogueId: vnode.context.openMenu.catalogueId,
                         noteDate: new Date(),
                         isTop: 0,//数据库应该设置默认值
@@ -79,40 +91,28 @@ export const backMainDirective = {
                         content: arr.join(""),
                         words: str,
                         picture: JSON.stringify(img)
-                    })
+                    }));
                 } else {
                     // await updateNotePaper({
                     //     listId: vnode.context.params.listId,
                     //     catalogueId: vnode.context.openMenu.catalogueId,
                     //     title: vnode.context.title,
                     //     content: arr.join(""),
-                    //     words: str
+                    //     words: str,
+                    //     picture: JSON.stringify(img)
                     // })
-                    await post("/updateNodeList", {
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'http://114.67.125.226:8081/updateNodeList', false);
+                    xhr.onload = function (e) { };
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
                         listId: vnode.context.params.listId,
                         catalogueId: vnode.context.openMenu.catalogueId,
                         title: vnode.context.title,
                         content: arr.join(""),
                         words: str,
                         picture: JSON.stringify(img)
-                    })
-                    async function post(url, data) {
-                        try {
-                            let res = await axios.post(url, data)
-                            res = res.data
-                            return new Promise((resolve, reject) => {
-                                if (res.code === 0) {
-                                    resolve(res)
-                                } else {
-                                    reject(res)
-                                }
-                            })
-                        } catch (err) {
-                            // return (e.message)
-                            alert('服务器出错')
-                            console.log(err)
-                        }
-                    }
+                    }));
                 }
 
             }
