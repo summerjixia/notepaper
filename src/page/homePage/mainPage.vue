@@ -34,7 +34,6 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 import headerNav from "./children/header";
 import leftNav from "./children/leftNav";
 import notepaperList from "./children/notepaperList";
-import axios from "axios";
 import {
   getNotePaperByAll,
   getNotePaperById,
@@ -42,7 +41,7 @@ import {
   saveMenu,
   updateMenu,
   deleteMenu
-} from "../../data/api";
+} from "_data/api";
 export default {
   data() {
     return {
@@ -59,7 +58,8 @@ export default {
     notepaperList
   },
   created() {
-    !this.openMenu && this.setOpenMenu({ id: 1, name: "笔记", level: 1 });
+    !this.openMenu &&
+      this.setOpenMenu({ catalogueId: 1, name: "笔记", level: 1 });
   },
   mounted() {
     this.getData();
@@ -119,7 +119,6 @@ export default {
       });
     },
     async getData() {
-      this.setMenuList();
       !!this.openMenu && this.openMenu.level !== 1
         ? await getNotePaperById({
             catalogueId: this.openMenu.catalogueId
@@ -128,8 +127,8 @@ export default {
           })
         : await getNotePaperByAll({ catalogueId: 1 }).then(result => {
             this.notePaperList = result.data;
-            // this.openMenu = { id: 1, name: "笔记", level: 1 }; //要改  默认查询
-            this.setOpenMenu(this.menuList[0]);
+            this.setMenuList();
+            this.menuList[0] && this.setOpenMenu(this.menuList[0]);
           });
     }
   }

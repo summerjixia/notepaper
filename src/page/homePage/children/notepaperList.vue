@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import notePaper from "../../../components/notePaper";
+import notePaper from "_components/notePaper";
 export default {
   data() {
     return {

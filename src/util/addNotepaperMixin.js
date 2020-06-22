@@ -5,7 +5,9 @@
 // 4.文字下划线
 //5.涂鸦图片高清
 //6.相同图片无法连续添加两次
-import { saveNotePaper, updateNotePaper } from "../data/api"
+//7.同步异步
+//8.openMenu
+import { saveNotePaper, updateNotePaper } from "_data/api"
 
 export const backMainDirective = {
 
@@ -108,6 +110,7 @@ export const backMainDirective = {
                     xhr.send(JSON.stringify({
                         listId: vnode.context.params.listId,
                         catalogueId: vnode.context.openMenu.catalogueId,
+                        noteDate: new Date(),
                         title: vnode.context.title,
                         content: arr.join(""),
                         words: str,

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { canvasDirectives } from "../../../../../util/addNotepaperMixin";
+import { canvasDirectives } from "_util/addNotepaperMixin";
 export default {
   data() {
     return {

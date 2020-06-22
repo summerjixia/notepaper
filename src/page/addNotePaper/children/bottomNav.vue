@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { photoDirectives } from "../../../util/addNotepaperMixin";
+import { photoDirectives } from "_util/addNotepaperMixin";
 export default {
   data() {
     return {
@@ -64,7 +64,7 @@ export default {
     },
     cancel() {
       this.isTimeSelect = false;
-      console.log(this);
+      console.log(this.$options.render);
     },
     formatString(value, isNumber) {
       let year = value.getFullYear();

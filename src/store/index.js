@@ -1,6 +1,6 @@
 import vue from 'vue';
 import vuex from 'vuex';
-import { getMenu } from "../data/api"
+import { getMenu } from "_data/api"
 
 vue.use(vuex);
 

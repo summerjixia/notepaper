@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { backMainDirective } from "../../../util/addNotepaperMixin";
+import { backMainDirective } from "_util/addNotepaperMixin";
 import { mapState } from "vuex";
 export default {
   data() {

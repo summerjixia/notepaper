@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { getNotePaperByLike } from "../../../../data/api";
-import notePaper from "../../../../components/notePaper";
+import { getNotePaperByLike } from "_data/api";
+import notePaper from "_components/notePaper";
 export default {
   data() {
     return {

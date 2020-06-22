@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { updateTop, deleteNotePaper } from "../data/api";
+import { updateTop, deleteNotePaper } from "_data/api";
 export default {
   methods: {
     topping(key, obj) {
